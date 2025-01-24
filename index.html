@@ -21,7 +21,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/jquery.fancybox-buttons.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div class="page">
@@ -58,14 +60,35 @@
               </a>
             </div>
             <div class="header__button">
-              <button class="header__btn">
+              <button class="header__btn btn-form" type="button">
                 <span>Заказать звонок эксперта</span>
-                <img src="images/sprite.svg#svgexport-1" width="24" height="24" alt="arrow icon" />
+                <svg width="24" height="24" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-1"></use>
+                </svg>
               </button>
             </div>
           </div>
         </div>
       </header>
+      <form action="mail.php" class="modal-window" method="POST">
+        <div id="overlay"></div>
+        <div class="modal-window__wrapper">
+          <button type="button" class="btn-close"></button>
+          <h3 class="modal-window__title">Онлайн быстрее</h3>
+          <div class="modal-window__text">
+            Оформить консультацию никогда не было так просто! Введите данные ниже, а остальное оставьте нам!
+          </div>
+          <input type="text" class="form-input" name="name" placeholder="Ваше имя" />
+          <input type="tel" class="form-input" name="tel" placeholder="Номер телефона" />
+          <input type="email" class="form-input" name="email" placeholder="Электронная почта (желательно)" />
+          <input type="text" class="form-input" name="text" placeholder="Пару слов о Вашем вопросе (рекомендуется)" />
+          <button class="modal-window__btn-form" type="submit">Оставить заявку</button>
+          <p class="modal-window__agreement">
+            Оставляя заявку, вы соглашаетесь на
+            <a class="modal-window__agreement-link" href="javascript:;">обработку персональных данных</a>
+          </p>
+        </div>
+      </form>
       <main class="main">
         <section class="main-screen">
           <div class="main-screen__parallax" id="bg-parallax"></div>
@@ -75,7 +98,7 @@
             </h1>
             <div class="main-screen__bottom">
               <p class="main-screen__text">Получите за 3 минуты актуальную на сегодня цену</p>
-              <button class="main-screen__btn">Узнать стоимость</button>
+              <button class="main-screen__btn btn-form" type="button">Узнать стоимость</button>
             </div>
           </div>
         </section>
@@ -89,19 +112,44 @@
               Государственном реестре измерительных приборов и подтверждено свидетельствами о поверке.
             </p>
             <div class="certificate__items">
-              <a class="fancybox-button" data-fancybox="gallery" href="images/certificate1.webp">
+              <a
+                class="fancybox-button certificate__item"
+                data-fancybox="gallery"
+                rel="fancybox-button"
+                href="images/certificate1.webp"
+              >
                 <img class="certificate__img" src="images/certificate1.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/certificate2.webp">
+              <a
+                class="fancybox-button certificate__item"
+                data-fancybox="gallery"
+                rel="fancybox-button"
+                href="images/certificate2.webp"
+              >
                 <img class="certificate__img" src="images/certificate2.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/certificate3.webp">
+              <a
+                class="fancybox-button certificate__item"
+                data-fancybox="gallery"
+                rel="fancybox-button"
+                href="images/certificate3.webp"
+              >
                 <img class="certificate__img" src="images/certificate3.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/certificate4.webp">
+              <a
+                class="fancybox-button certificate__item"
+                data-fancybox="gallery"
+                rel="fancybox-button"
+                href="images/certificate4.webp"
+              >
                 <img class="certificate__img" src="images/certificate4.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/certificate3.webp">
+              <a
+                class="fancybox-button certificate__item"
+                data-fancybox="gallery"
+                rel="fancybox-button"
+                href="images/certificate5.webp"
+              >
                 <img class="certificate__img" src="images/certificate5.webp" alt="" />
               </a>
             </div>
@@ -112,63 +160,83 @@
             <h2 class="advantages__title title">Преимущества нашей компании:</h2>
             <div class="advantages__items">
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-5" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-5"></use>
+                </svg>
                 <p class="advantages__item-title">Персональная аккредитованная лаборатория</p>
                 <p class="advantages__item-text">Сертификат аккредитации № RU.ИАШО.21ИЛ26</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-6" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-6"></use>
+                </svg>
                 <p class="advantages__item-title">
                   Штатные свои специалисты по обследованию зданий и сооружений, геологическим и экологическим изысканиям
                 </p>
                 <p class="advantages__item-text">Допуск СРО-И-050- 23102020</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-7" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-7"></use>
+                </svg>
                 <p class="advantages__item-title">Работаем по 44-ФЗ и 223-ФЗ</p>
                 <p class="advantages__item-text">Участие в государственных закупках и тендерах</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-10" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-10"></use>
+                </svg>
                 <p class="advantages__item-title">Аттестованный Проектный отдел</p>
                 <p class="advantages__item-text">Проектировщики, включены в НРС</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-9" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-9"></use>
+                </svg>
                 <p class="advantages__item-title">Квалифицированный Юридический отдел</p>
                 <p class="advantages__item-text">Полное юридическое сопровождение взаимодействия</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-8" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-8"></use>
+                </svg>
                 <p class="advantages__item-title">Прохождение Государственной экспертизы</p>
                 <p class="advantages__item-text">
                   Согласование результатов инженерных изысканий и проектно-сметной документации в Государственной экспертизе.
                 </p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-12" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-12"></use>
+                </svg>
                 <p class="advantages__item-title">Осуществляем Технический надзор в строительстве</p>
                 <p class="advantages__item-text">Профессиональный контроль качества на всех стадиях строительства</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-11" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-11"></use>
+                </svg>
                 <p class="advantages__item-title">Ввод объекта в эксплуатацию</p>
                 <p class="advantages__item-text">
                   Опытная команда специалистов, обладающая глубокими знаниями и успешным опытом работы с государственными службами
                 </p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-13" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-13"></use>
+                </svg>
                 <p class="advantages__item-title">Оформим разрешение на реконструкцию или строительство «под ключ».</p>
                 <p class="advantages__item-text">Команда опытных специалистов, готовых решить задачи любой сложности.</p>
               </div>
               <div class="advantages__item">
-                <img src="images/sprite.svg#svgexport-14" width="64" height="64" alt="arrow icon" />
+                <svg width="64" height="64" fill="#212121">
+                  <use xlink:href="images/sprite.svg#svgexport-14"></use>
+                </svg>
                 <p class="advantages__item-title">Корректировка данных в Градостроительном плане земельного участка</p>
                 <p class="advantages__item-text">Команда опытных специалистов, готовых решить задачи любой сложности.</p>
               </div>
             </div>
-            <button class="advantages__btn">Получить КП</button>
+            <button class="advantages__btn btn-form" type="button">Получить КП</button>
           </div>
         </section>
         <section class="about">
@@ -301,17 +369,17 @@
               <div class="offer__item">
                 <p class="offer__item-title">Обмерные работы</p>
                 <p class="offer__item-text">от 15 000 рублей сроки: от 2х дней</p>
-                <button class="offer__item-btn">Получить скидку</button>
+                <button class="offer__item-btn btn-form" type="button">Получить скидку</button>
               </div>
               <div class="offer__item">
                 <p class="offer__item-title">Общее обследование</p>
                 <p class="offer__item-text">от 20 000 рублей сроки: от 3х дней</p>
-                <button class="offer__item-btn">Получить скидку</button>
+                <button class="offer__item-btn btn-form" type="button">Получить скидку</button>
               </div>
               <div class="offer__item">
                 <p class="offer__item-title">Детальное обследование</p>
                 <p class="offer__item-text">от 50 000 рублей сроки: от 5 дней</p>
-                <button class="offer__item-btn">Получить скидку</button>
+                <button class="offer__item-btn btn-form" type="button">Получить скидку</button>
               </div>
             </div>
           </div>
@@ -355,27 +423,38 @@
           <div class="rewiews__inner container">
             <h2 class="rewiews__title title">Отзывы Заказчиков</h2>
             <div class="rewiews__items">
-              <a class="fancybox-button" data-fancybox="gallery" href="images/feadbak-1.webp">
+              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-1.webp">
                 <img class="rewiews__img" src="images/feadbak-1.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/feadbak-2.webp">
+              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-2.webp">
                 <img class="rewiews__img" src="images/feadbak-2.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/feadbak-3.webp">
+              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-3.webp">
                 <img class="rewiews__img" src="images/feadbak-3.webp" alt="" />
               </a>
-              <a class="fancybox-button" data-fancybox="gallery" href="images/feadbak-4.webp">
+              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-4.webp">
                 <img class="rewiews__img" src="images/feadbak-4.webp" alt="" />
               </a>
             </div>
           </div>
         </section>
         <section class="form">
-          <div class="form__inner">
+          <div class="form__inner min-container">
             <h2 class="form__title title">Желаете получить ответ на Ваш вопрос?</h2>
             <p class="form__text">
               Оставьте ваши контактные данные, чтобы получить консультацию специалиста. Это совершенно бесплатно
             </p>
+            <div class="form__box">
+              <input type="text" class="form__box-input" name="name" placeholder="Ваше имя" />
+              <input type="tel" class="form__box-input" name="tel" placeholder="Телефон" />
+              <input type="email" class="form__box-input" name="email" placeholder="E-mail" />
+              <input type="text" class="form__box-input" name="text" placeholder="Тема обращения" />
+              <button class="form__box-btn" type="submit">Оставить заявку</button>
+              <p class="form__box__agreement">
+                Оставляя заявку, Вы соглашаетесь на
+                <a class="form__box__agreement-link" href="javascript:;">обработку персональных данных</a>
+              </p>
+            </div>
           </div>
         </section>
         <section class="partners">
@@ -385,7 +464,7 @@
             <div class="partners__box">
               <img class="partners__img" src="images/partners-1.webp" width="255" height="190" loading="lazy" alt="image" />
               <img class="partners__img" src="images/partners-2.webp" width="255" height="82" loading="lazy" alt="image" />
-              <img class="partners__img" src="images/partners-3.png" width="255" height="200" loading="lazy" alt="image" />
+              <img class="partners__img" src="images/partners-3.webp" width="255" height="200" loading="lazy" alt="image" />
               <img class="partners__img" src="images/partners-4.webp" width="255" height="168" loading="lazy" alt="image" />
             </div>
           </div>
@@ -412,6 +491,9 @@
         </div>
       </footer>
     </div>
-    <script src="js/main.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.fancybox-buttons.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
