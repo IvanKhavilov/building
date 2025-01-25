@@ -9,12 +9,21 @@ $(document).ready(function () {
     },
   })
 })
-let mainParalax = document.getElementById('bg-parallax')
-this.addEventListener('scroll', function () {
-  mainParalax.style.top = +this.scrollY + 'px'
-  mainParalax.style.backgroundPositionY = -+(+this.scrollY) / 2 + 'px'
-})
+// let mainParalax = document.getElementById('bg-parallax')
+// this.addEventListener('scroll', function () {
+//   mainParalax.style.top = +this.scrollY + 'px'
+//   mainParalax.style.backgroundPositionY = -+(+this.scrollY) / 2 + 'px'
+// })
+function setupParallax() {
+  let mainParalax = document.getElementById('bg-parallax')
+  window.addEventListener('scroll', () => {
+    let scrollY = window.scrollY
+    mainParalax.style.transform = `translateY(${scrollY}px)`
+    mainParalax.style.backgroundPositionY = `${-scrollY / 2}px`
+  })
+}
 
+setupParallax()
 const btnForm = document.querySelectorAll('.btn-form')
 const modalWindow = document.querySelector('.modal-window')
 const overlay = document.getElementById('overlay')
