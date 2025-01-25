@@ -137,7 +137,7 @@ body {
 }
 @media (max-width: 574px) {
   .page {
-    padding-top: 286px;
+    padding-top: 270px;
   }
 }
 .header {
@@ -361,12 +361,11 @@ body {
 }
 @media (max-width: 574px) {
   .main-screen {
-    padding-top: 45px;
+    padding-top: 55px;
     height: 600px;
   }
   .main-screen__parallax {
     background-image: url('../images/main-bg-mob.webp');
-    background-position-y: -15px;
   }
   .main-screen__title {
     margin-bottom: 50px;
