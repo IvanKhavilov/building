@@ -444,7 +444,7 @@
             <p class="form__text">
               Оставьте ваши контактные данные, чтобы получить консультацию специалиста. Это совершенно бесплатно
             </p>
-            <div class="form__box">
+            <form action="mail.php" class="form__box send-form" method="POST">
               <input type="text" class="form__box-input" name="name" placeholder="Ваше имя" />
               <input type="tel" class="form__box-input" name="tel" placeholder="Телефон" />
               <input type="email" class="form__box-input" name="email" placeholder="E-mail" />
@@ -454,7 +454,7 @@
                 Оставляя заявку, Вы соглашаетесь на
                 <a class="form__box__agreement-link" href="javascript:;">обработку персональных данных</a>
               </p>
-            </div>
+            </form>
           </div>
         </section>
         <section class="partners">

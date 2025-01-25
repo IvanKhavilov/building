@@ -366,7 +366,6 @@ body {
   }
   .main-screen__parallax {
     background-image: url('../images/main-bg-mob.webp');
-    background-position: 25% 280px;
   }
   .main-screen__title {
     margin-bottom: 50px;

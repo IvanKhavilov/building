@@ -33,27 +33,6 @@ function closeModal() {
 overlay.addEventListener('click', closeModal)
 btnClose.addEventListener('click', closeModal)
 
-const geolocationBtn = document.getElementById('geolocation-btn__inner')
-const map = document.querySelectorAll('.map')
-
-const changeClass = (el) => {
-  for (let btn of document.querySelectorAll('.geolocation-btn')) {
-    btn.classList.remove('active')
-  }
-  el.classList.add('active')
-}
-geolocationBtn.addEventListener('click', (e) => {
-  const currBtn = e.target.dataset.location
-  changeClass(e.target)
-
-  for (let i = 0; i < map.length; i++) {
-    map[i].classList.remove('active')
-    if (map[i].dataset.map === currBtn) {
-      map[i].classList.add('active')
-    }
-  }
-})
-
 let submitForm = function (selector) {
   document.querySelector(selector).addEventListener('submit', function (event) {
     event.preventDefault() // Предотвращаем отправку формы по умолчанию
@@ -66,12 +45,13 @@ let submitForm = function (selector) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === 'success') {
-          // Закрытие модального окна при успешной отправке
-          this.closest('.modal-window').classList.remove('open')
-          alert(data.message) // Вывод сообщения об успешной отправке
+        if (data == true) {
+          console.log(data)
+          alert('Сообщение отправлено') // Вывод сообщения об успешной отправке
+          closeModal() // Закрытие модального окна
         } else {
-          alert(data.message) // Вывод сообщения об ошибке
+          console.log(data)
+          alert('Сообщение не отправлено') // Вывод сообщения об ошибке
         }
         this.reset() // Сбрасываем форму
       })
@@ -83,3 +63,4 @@ let submitForm = function (selector) {
 }
 
 submitForm('.modal-window')
+submitForm('.send-form')
