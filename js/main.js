@@ -8,12 +8,43 @@ $(document).ready(function () {
       buttons: {},
     },
   })
+  $('.partners__box').slick({
+    arrows: true,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1180,
+        settings: {
+          arrows: false,
+          dots: true,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          dots: true,
+          arrows: false,
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          dots: true,
+          arrows: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  })
 })
-// let mainParalax = document.getElementById('bg-parallax')
-// this.addEventListener('scroll', function () {
-//   mainParalax.style.top = +this.scrollY + 'px'
-//   mainParalax.style.backgroundPositionY = -+(+this.scrollY) / 2 + 'px'
-// })
+
 function setupParallax() {
   let mainParalax = document.getElementById('bg-parallax')
   window.addEventListener('scroll', () => {
@@ -22,8 +53,8 @@ function setupParallax() {
     mainParalax.style.backgroundPositionY = `${-scrollY / 2}px`
   })
 }
-
 setupParallax()
+
 const btnForm = document.querySelectorAll('.btn-form')
 const modalWindow = document.querySelector('.modal-window')
 const overlay = document.getElementById('overlay')
