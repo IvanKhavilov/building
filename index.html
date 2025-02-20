@@ -27,6 +27,69 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      ;(function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            ;(m[i].a = m[i].a || []).push(arguments)
+          }
+        m[i].l = 1 * new Date()
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return
+          }
+        }
+        ;(k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]), (k.async = 1), (k.src = r), a.parentNode.insertBefore(k, a)
+      })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym')
+
+      ym(95211276, 'init', {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+      })
+    </script>
+
+    <!-- Скрипт для отслеживания копирования номеров и email с разными целями -->
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+        // Функция для отправки события в один счётчик с разными целями
+        function trackCopy(targetGoal) {
+          if (window.ym) {
+            ym(95211276, 'reachGoal', targetGoal) // Отправка события в один счётчик
+            console.log('Событие отправлено: ' + targetGoal)
+          }
+        }
+
+        // Массив элементов для отслеживания
+        var elementsToTrack = [
+          { selector: '.phone1', goalName: 'copy_phone1' }, // Цель для первого номера телефона
+          { selector: '.phone2', goalName: 'copy_phone2' }, // Цель для второго номера телефона
+          { selector: '.email2', goalName: 'copy_email2' }, // Цель для второго e-mail
+          { selector: '.email_str', goalName: 'email_str' }, // Цель для всей строки e-mail
+        ]
+
+        // Добавляем слушатели события copy для каждого элемента
+        elementsToTrack.forEach(function (item) {
+          var element = document.querySelector(item.selector)
+          if (element) {
+            element.addEventListener('copy', function () {
+              trackCopy(item.goalName)
+            })
+          }
+        })
+      })
+    </script>
+
+    <noscript>
+      <div>
+        <img src="https://mc.yandex.ru/watch/95211276" style="position: absolute; left: -9999px" alt="" />
+      </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
     <div class="page">
       <header class="header">
         <div class="header__inner">
@@ -38,13 +101,13 @@
               <img src="images/logo.webp" width="363" height="94" loading="eager" alt="logo" />
             </a>
             <div class="header__contact header__bottom-item">
-              <div class="header__contact-mail">
-                E-mail:
-                <a class="header__contact-link" href="mailto:mck-expertiza@yandex.ru">mck-expertiza@yandex.ru</a>
+              <div class="header__contact-mail email_str">
+                <span>E-mail:</span>
+                <a class="header__contact-link" href="mailto:tex-grup@mail.ru">tex-grup@mail.ru</a>
               </div>
               <div class="header__contact-phone">
                 <p>Бесплатная консультация эксперта</p>
-                <a class="header__contact-number" href="tel:89774725064">
+                <a class="header__contact-number phone1" href="tel:89774725064">
                   <span>8 (977)</span>
                   <b>472-50-64</b>
                 </a>
@@ -79,17 +142,24 @@
           <div class="modal-window__text">
             Оформить консультацию никогда не было так просто! Введите данные ниже, а остальное оставьте нам!
           </div>
-          <input type="text" class="form-input" name="name" placeholder="Ваше имя" />
-          <input type="tel" class="form-input" name="tel" placeholder="Номер телефона" />
-          <input type="email" class="form-input" name="email" placeholder="Электронная почта (желательно)" />
-          <input type="text" class="form-input" name="text" placeholder="Пару слов о Вашем вопросе (рекомендуется)" />
-          <button class="modal-window__btn-form" type="submit">Оставить заявку</button>
+          <input type="text" class="form-input" name="name" placeholder="Ваше имя" required />
+          <input type="tel" class="form-input" name="tel" placeholder="Номер телефона" required />
+          <input type="email" class="form-input" name="email" placeholder="Электронная почта" />
+          <input type="text" class="form-input" name="text" placeholder="Пару слов о Вашем вопросе" />
+          <button class="modal-window__btn-form submit-btn" type="submit">Оставить заявку</button>
           <p class="modal-window__agreement">
             Оставляя заявку, вы соглашаетесь на
             <a class="modal-window__agreement-link" href="javascript:;">обработку персональных данных</a>
           </p>
         </div>
       </form>
+      <div id="successModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-content__decor"></div>
+          <h3 class="modal-window__title">Заявка оформлена</h3>
+          <p class="modal-window__text">Наш менеджер позвонит Вам в течении 15 минут уточнить детали. Хорошего дня!</p>
+        </div>
+      </div>
       <main class="main">
         <section class="main-screen">
           <div class="main-screen__parallax" id="bg-parallax"></div>
@@ -113,45 +183,55 @@
               Государственном реестре измерительных приборов и подтверждено свидетельствами о поверке.
             </p>
             <div class="certificate__items">
-              <a
-                class="fancybox-button certificate__item"
-                data-fancybox="gallery"
-                rel="fancybox-button"
-                href="images/certificate1.webp"
-              >
-                <img class="certificate__img" src="images/certificate1.webp" alt="" />
+              <a class="certificate__item" data-fancybox="gallery" rel="fancybox-button" href="images/certificate1.webp">
+                <img
+                  class="certificate__img"
+                  src="images/certificate1.webp"
+                  loading="lazy"
+                  width="100%"
+                  height="100%"
+                  alt="image"
+                />
               </a>
-              <a
-                class="fancybox-button certificate__item"
-                data-fancybox="gallery"
-                rel="fancybox-button"
-                href="images/certificate2.webp"
-              >
-                <img class="certificate__img" src="images/certificate2.webp" alt="" />
+              <a class="certificate__item" data-fancybox="gallery" rel="fancybox-button" href="images/certificate2.webp">
+                <img
+                  class="certificate__img"
+                  src="images/certificate2.webp"
+                  loading="lazy"
+                  width="100%"
+                  height="100%"
+                  alt="image"
+                />
               </a>
-              <a
-                class="fancybox-button certificate__item"
-                data-fancybox="gallery"
-                rel="fancybox-button"
-                href="images/certificate3.webp"
-              >
-                <img class="certificate__img" src="images/certificate3.webp" alt="" />
+              <a class="certificate__item" data-fancybox="gallery" rel="fancybox-button" href="images/certificate3.webp">
+                <img
+                  class="certificate__img"
+                  src="images/certificate3.webp"
+                  loading="lazy"
+                  width="100%"
+                  height="100%"
+                  alt="image"
+                />
               </a>
-              <a
-                class="fancybox-button certificate__item"
-                data-fancybox="gallery"
-                rel="fancybox-button"
-                href="images/certificate4.webp"
-              >
-                <img class="certificate__img" src="images/certificate4.webp" alt="" />
+              <a class="certificate__item" data-fancybox="gallery" rel="fancybox-button" href="images/certificate4.webp">
+                <img
+                  class="certificate__img"
+                  src="images/certificate4.webp"
+                  loading="lazy"
+                  width="100%"
+                  height="100%"
+                  alt="image"
+                />
               </a>
-              <a
-                class="fancybox-button certificate__item"
-                data-fancybox="gallery"
-                rel="fancybox-button"
-                href="images/certificate5.webp"
-              >
-                <img class="certificate__img" src="images/certificate5.webp" alt="" />
+              <a class="certificate__item" data-fancybox="gallery" rel="fancybox-button" href="images/certificate5.webp">
+                <img
+                  class="certificate__img"
+                  src="images/certificate5.webp"
+                  loading="lazy"
+                  width="100%"
+                  height="100%"
+                  alt="image"
+                />
               </a>
             </div>
           </div>
@@ -267,7 +347,9 @@
 
             <div class="our-objects__items">
               <div class="our-objects__item">
-                <img src="images/object-1.webp" loading="lazy" width="300" height="300" alt="image" />
+                <a class="objects" data-fancybox="gallery" rel="fancybox-button" href="images/object-1.webp">
+                  <img class="objects__img" src="images/object-1.webp" alt="" />
+                </a>
                 <p class="our-objects__item-title">Арес объекта: г. Москва, ул. Генерала 31,к.1.</p>
                 <p class="our-objects__item-title">Площадь здания: 25.000м.кв.</p>
                 <p class="our-objects__text">
@@ -282,7 +364,9 @@
                 </ol>
               </div>
               <div class="our-objects__item">
-                <img src="images/object-2.webp" loading="lazy" width="300" height="300" alt="image" />
+                <a class="objects" data-fancybox="gallery" rel="fancybox-button" href="images/object-2.webp">
+                  <img class="objects__img" src="images/object-2.webp" loading="lazy" alt="image" />
+                </a>
                 <p class="our-objects__item-title">Арес объекта: Московская область</p>
                 <p class="our-objects__item-title">Объем здания: 30.000м.куб.</p>
                 <p class="our-objects__text">
@@ -298,7 +382,9 @@
                 </ol>
               </div>
               <div class="our-objects__item">
-                <img src="images/object-3.webp" loading="lazy" width="300" height="300" alt="image" />
+                <a class="objects" data-fancybox="gallery" rel="fancybox-button" href="images/object-3.webp">
+                  <img class="objects__img" src="images/object-3.webp" loading="lazy" alt="image" />
+                </a>
                 <p class="our-objects__item-title">Арес объекта: МО, г. Шатура.</p>
                 <p class="our-objects__item-title">Объем здания: 7.000м.куб.</p>
                 <p class="our-objects__text">
@@ -314,7 +400,9 @@
                 </ol>
               </div>
               <div class="our-objects__item">
-                <img src="images/object-4.webp" loading="lazy" width="300" height="300" alt="image" />
+                <a class="objects" data-fancybox="gallery" rel="fancybox-button" href="images/object-4.webp">
+                  <img class="objects__img" src="images/object-4.webp" loading="lazy" alt="image" />
+                </a>
                 <p class="our-objects__item-title">
                   Арес объекта:
                   <br />
@@ -424,17 +512,17 @@
           <div class="rewiews__inner container">
             <h2 class="rewiews__title title">Отзывы Заказчиков</h2>
             <div class="rewiews__items">
-              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-1.webp">
-                <img class="rewiews__img" src="images/feadbak-1.webp" alt="" />
+              <a class="rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-1.webp">
+                <img class="rewiews__img" src="images/feadbak-1.webp" loading="lazy" width="100%" height="100%" alt="image" />
               </a>
-              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-2.webp">
-                <img class="rewiews__img" src="images/feadbak-2.webp" alt="" />
+              <a class="rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-2.webp">
+                <img class="rewiews__img" src="images/feadbak-2.webp" loading="lazy" width="100%" height="100%" alt="image" />
               </a>
-              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-3.webp">
-                <img class="rewiews__img" src="images/feadbak-3.webp" alt="" />
+              <a class="rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-3.webp">
+                <img class="rewiews__img" src="images/feadbak-3.webp" loading="lazy" width="100%" height="100%" alt="image" />
               </a>
-              <a class="fancybox-button rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-4.webp">
-                <img class="rewiews__img" src="images/feadbak-4.webp" alt="" />
+              <a class="rewiews__item" data-fancybox="gallery" rel="fancybox-button" href="images/feadbak-4.webp">
+                <img class="rewiews__img" src="images/feadbak-4.webp" loading="lazy" width="100%" height="100%" alt="image" />
               </a>
             </div>
           </div>
@@ -446,11 +534,11 @@
               Оставьте ваши контактные данные, чтобы получить консультацию специалиста. Это совершенно бесплатно
             </p>
             <form action="mail.php" class="form__box send-form" method="POST">
-              <input type="text" class="form__box-input" name="name" placeholder="Ваше имя" />
-              <input type="tel" class="form__box-input" name="tel" placeholder="Телефон" />
+              <input type="text" class="form__box-input" name="name" placeholder="Ваше имя" required />
+              <input type="tel" class="form__box-input" name="tel" placeholder="Телефон" required />
               <input type="email" class="form__box-input" name="email" placeholder="E-mail" />
               <input type="text" class="form__box-input" name="text" placeholder="Тема обращения" />
-              <button class="form__box-btn" type="submit">Оставить заявку</button>
+              <button class="form__box-btn submit-btn" type="submit">Оставить заявку</button>
               <p class="form__box__agreement">
                 Оставляя заявку, Вы соглашаетесь на
                 <a class="form__box__agreement-link" href="javascript:;">обработку персональных данных</a>
@@ -478,8 +566,8 @@
           </a>
           <div class="footer__contact">
             <p class="footer__contact-text">Справки по телефону</p>
-            <a class="footer__contact-link" href="tel:+79774725064">+7 (977) 472-50-64</a>
-            <a class="footer__contact-link footer__contact-mail" href="mailto:mck-expertiza@yandex.ru">mck-expertiza@yandex.ru</a>
+            <a class="footer__contact-link phone2" href="tel:89774725064">8 (977) 472-50-64</a>
+            <a class="footer__contact-link footer__contact-mail email2" href="mailto:tex-grup@mail.ru">tex-grup@mail.ru</a>
           </div>
           <div class="footer__social">
             <a class="footer__social-link" href="https://wa.me/79912665744">
