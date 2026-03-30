@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/jquery.fancybox-buttons.css" />
     <link rel="stylesheet" href="css/slick.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   </head>
   <body>
     <!-- Yandex.Metrika counter -->
@@ -41,7 +42,11 @@
             return
           }
         }
-        ;(k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]), (k.async = 1), (k.src = r), a.parentNode.insertBefore(k, a)
+        ;((k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a))
       })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym')
 
       ym(95211276, 'init', {
@@ -92,44 +97,51 @@
 
     <div class="page">
       <header class="header">
-        <div class="header__inner">
-          <div class="header__top">
-            Мы 15 лет на рынке технических заключений, обследования зданий и финансово-строительной экспертизы.
-          </div>
-          <div class="header__bottom">
-            <a class="logo header__bottom-item" href="#">
-              <img src="images/logo.webp" width="363" height="94" loading="eager" alt="logo" />
-            </a>
-            <div class="header__contact header__bottom-item">
-              <div class="header__contact-mail email_str">
-                <span>E-mail:</span>
-                <a class="header__contact-link" href="mailto:tex-grup@mail.ru">tex-grup@mail.ru</a>
+        <div class="container">
+          <div class="header__inner">
+            <div class="header__top">
+              Мы 15 лет на рынке технических заключений, обследования зданий и финансово-строительной экспертизы.
+            </div>
+            <div class="header__bottom">
+              <a class="logo header__bottom-item" href="#">
+                <picture>
+                  <source srcset="images/logo.webp" media="(min-width: 1025px)" />
+                  <img src="images/footer-logo.webp" alt="логотип" />
+                </picture>
+                <span class="logo-text"></span>
+              </a>
+              <div class="header__contact header__bottom-item">
+                <div class="header__contact-mail email_str">
+                  <span>E-mail:</span>
+                  <a class="header__contact-link" href="mailto:tex-grup@mail.ru">tex-grup@mail.ru</a>
+                </div>
+                <div class="header__contact-phone">
+                  <p>Бесплатная консультация эксперта</p>
+                  <a class="header__contact-number phone1" href="tel:89774725064">
+                    <span>8 (977)</span>
+                    <b>472-50-64</b>
+                  </a>
+                </div>
               </div>
-              <div class="header__contact-phone">
-                <p>Бесплатная консультация эксперта</p>
-                <a class="header__contact-number phone1" href="tel:89774725064">
-                  <span>8 (977)</span>
-                  <b>472-50-64</b>
+              <div class="header__max header__bottom-item">
+                <a
+                  class="header__whatsapp-link"
+                  target="_blank"
+                  href="https://max.ru/u/f9LHodD0cOIOumGI4zNEJfuogKlW9guwiu-fGkjq7qDYtRVUUOo6Xqek5d0"
+                >
+                  <img src="images/max.svg" width="54" height="54" alt="Max logo" />
+                  <span>
+                    мессенджер
+                    <br />
+                    <i>Max</i>
+                  </span>
                 </a>
               </div>
-            </div>
-            <div class="header__whatsapp header__bottom-item">
-              <a class="header__whatsapp-link" target="_blank" href="https://wa.me/79912665744">
-                <img src="images/whatsapp-logo.webp" alt="WhatsApp logo" />
-                <span>
-                  WhatsApp
-                  <br />
-                  мессенджер
-                </span>
-              </a>
-            </div>
-            <div class="header__button header__bottom-item">
-              <button class="header__btn btn-form" type="button">
-                <span>Заказать звонок</span>
-                <svg width="24" height="24" fill="#212121">
-                  <use xlink:href="images/sprite.svg#svgexport-1"></use>
-                </svg>
-              </button>
+              <div class="header__button header__bottom-item">
+                <button class="header__btn btn-form" type="button">
+                  <span>Заказать звонок</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -144,8 +156,14 @@
           </div>
           <input type="text" class="form-input" name="name" placeholder="Ваше имя" required />
           <input type="tel" class="form-input" name="tel" placeholder="Номер телефона" required />
-          <input type="email" class="form-input" name="email" placeholder="Электронная почта" />
+          <input type="email" class="form-input" name="email" placeholder="Электронная почта (при наличии)" />
           <input type="text" class="form-input" name="text" placeholder="Пару слов о Вашем вопросе" />
+          <div
+            class="g-recaptcha"
+            id="recaptcha2"
+            data-callback="enableSubmitBtn"
+            data-sitekey="6LddtMcqAAAAAMbBgFcvFTorFy2YuNyu2HAxjRU7"
+          ></div>
           <button class="modal-window__btn-form submit-btn" type="submit">Оставить заявку</button>
           <p class="modal-window__agreement">
             Оставляя заявку, вы соглашаетесь на
@@ -164,9 +182,7 @@
         <section class="main-screen">
           <div class="main-screen__parallax" id="bg-parallax"></div>
           <div class="main-screen__inner container">
-            <h1 class="main-screen__title">
-              Выполним Техническое Заключение и обследование здания любого типа, проведём Экспертизу!
-            </h1>
+            <h1 class="main-screen__title">Строительная экспертиза и обследование зданий. Техническое заключение.</h1>
             <div class="main-screen__bottom">
               <p class="main-screen__text">Получите за 3 минуты актуальную на сегодня цену</p>
               <button class="main-screen__btn btn-form" type="button">Узнать стоимость</button>
@@ -350,7 +366,7 @@
                 <a class="objects" data-fancybox="gallery" rel="fancybox-button" href="images/object-1.webp">
                   <img class="objects__img" src="images/object-1.webp" alt="" />
                 </a>
-                <p class="our-objects__item-title">Арес объекта: г. Москва, ул. Генерала 31,к.1.</p>
+                <p class="our-objects__item-title">Арес объекта: г. Москва, ул.Сетуньская.</p>
                 <p class="our-objects__item-title">Площадь здания: 25.000м.кв.</p>
                 <p class="our-objects__text">
                   Цель работ: оценка влияния строительства на устойчивость основания зданий прилегающих к пятну застройки
@@ -536,8 +552,14 @@
             <form action="mail.php" class="form__box send-form" method="POST">
               <input type="text" class="form__box-input" name="name" placeholder="Ваше имя" required />
               <input type="tel" class="form__box-input" name="tel" placeholder="Телефон" required />
-              <input type="email" class="form__box-input" name="email" placeholder="E-mail" />
+              <input type="email" class="form__box-input" name="email" placeholder="E-mail (при наличии)" />
               <input type="text" class="form__box-input" name="text" placeholder="Тема обращения" />
+              <div
+                class="g-recaptcha"
+                id="recaptcha1"
+                data-sitekey="6LddtMcqAAAAAMbBgFcvFTorFy2YuNyu2HAxjRU7"
+                data-callback="enableSubmitBtn"
+              ></div>
               <button class="form__box-btn submit-btn" type="submit">Оставить заявку</button>
               <p class="form__box__agreement">
                 Оставляя заявку, Вы соглашаетесь на
@@ -570,8 +592,8 @@
             <a class="footer__contact-link footer__contact-mail email2" href="mailto:tex-grup@mail.ru">tex-grup@mail.ru</a>
           </div>
           <div class="footer__social">
-            <a class="footer__social-link" href="https://wa.me/79912665744">
-              <img src="images/footer-whatsapp.webp" loading="lazy" width="54" height="54" alt="whatsapp icon" />
+            <a class="footer__social-link" href="https://max.ru/u/f9LHodD0cOIOumGI4zNEJfuogKlW9guwiu-fGkjq7qDYtRVUUOo6Xqek5d0">
+              <img src="images/max.svg" loading="lazy" width="54" height="54" alt="max icon" />
             </a>
             <a class="footer__social-link" href="https://t.me/Tehbel">
               <img src="images/footer-tg.webp" loading="lazy" width="54" height="54" alt="telegram icon" />
