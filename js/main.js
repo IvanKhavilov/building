@@ -83,6 +83,22 @@ $(document).ready(function () {
   })
 })
 
+const logoText = document.querySelector('.logo-text')
+const mediaQuery = window.matchMedia('(max-width: 1024px)')
+
+function handleChange(e) {
+  if (e.matches) {
+    logoText.textContent = 'СТРОИТЕЛЬНАЯ ЭКСПЕРТИЗА'
+  } else {
+    logoText.textContent = 'Регистрационные номера в СРО: И-050-006700022508-1309, П-153-006700022508-3157.'
+  }
+}
+
+// при загрузке
+handleChange(mediaQuery)
+// при изменении
+mediaQuery.addEventListener('change', handleChange)
+
 function setupParallax() {
   let mainParalax = document.getElementById('bg-parallax')
   window.addEventListener('scroll', () => {
@@ -119,32 +135,177 @@ function showModal() {
   }, 5000)
 }
 
-function submitForm(selector) {
-  let form = document.querySelector(selector)
-  if (!form) return // Если форма не найдена, выходим
+// function enableSubmitBtn() {
+//   document.querySelectorAll('[type="submit"]').forEach((btn) => {
+//     btn.disabled = false // Разблокируем все кнопки отправки
+//   })
+// }
+// function onloadCallback() {
+//   renderRecaptchas()
+// }
+// function renderRecaptchas() {
+//   if (typeof grecaptcha !== 'undefined') {
+//     document.querySelectorAll('.g-recaptcha').forEach((recaptcha) => {
+//       if (!recaptcha.hasAttribute('data-widget-id')) {
+//         let widgetId = grecaptcha.render(recaptcha, {
+//           sitekey: recaptcha.getAttribute('data-sitekey'),
+//         })
+//         recaptcha.setAttribute('data-widget-id', widgetId)
+//       }
+//     })
+//   } else {
+//     console.warn('grecaptcha не определён.')
+//   }
+// }
+// document.addEventListener('DOMContentLoaded', renderRecaptchas)
+// function resetAllRecaptchas() {
+//   if (typeof grecaptcha !== 'undefined') {
+//     document.querySelectorAll('.g-recaptcha').forEach((recaptcha) => {
+//       let widgetId = recaptcha.getAttribute('data-widget-id')
+//       if (widgetId) {
+//         grecaptcha.reset(widgetId)
+//       }
+//     })
+//   } else {
+//     console.warn('grecaptcha не определён.')
+//   }
+// }
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault() // Останавливаем стандартную отправку
+// function submitForm(selector) {
+//   let form = document.querySelector(selector)
+//   if (!form) return // Если форма не найдена, выходим
 
-    let formData = new FormData(form)
-    let submitBtn = form.querySelector('[type="submit"]')
+//   form.addEventListener('submit', function (event) {
+//     event.preventDefault() // Останавливаем стандартную отправку
 
-    fetch(form.action, { method: form.method, body: formData })
-      .then((response) => response.json()) // Ожидаем JSON-ответ
-      .then((data) => {
-        if (data.success === true) {
-          ym(95211276, 'reachGoal', 'Отправка_формы') // Фиксируем событие в Метрике
-          form.reset() // Очищаем форму
-          closeModal()
-          showModal()
-        } else {
-          alert(data.error || 'Ошибка при отправке формы. Попробуйте ещё раз.')
-        }
-      })
-      .catch((error) => console.error('Ошибка запроса:', error))
+//     let formData = new FormData(form)
+//     let submitBtn = form.querySelector('[type="submit"]')
+//     submitBtn.disabled = true // Блокируем кнопку, чтобы избежать повторных кликов
+
+//     fetch(form.action, { method: form.method, body: formData })
+//       .then((response) => response.json()) // Ожидаем JSON-ответ
+//       .then((data) => {
+//         if (data.success === true) {
+//           ym(95211276, 'reachGoal', 'Отправка_формы') // Фиксируем событие в Метрике
+//           form.reset() // Очищаем форму
+//           resetAllRecaptchas()
+//           closeModal()
+//           showModal()
+//         } else {
+//           alert(data.error || 'Ошибка при отправке формы. Попробуйте ещё раз.')
+//         }
+//       })
+//       .catch((error) => console.error('Ошибка запроса:', error))
+//       .finally(() => {
+//         submitBtn.disabled = false // Разблокируем кнопку
+//       })
+//   })
+// }
+
+// // Вызываем функцию для каждой формы
+// submitForm('.modal-window')
+// submitForm('.send-form')
+
+// === Разблокировка кнопок после прохождения капчи ===
+function enableSubmitBtn() {
+  document.querySelectorAll('[type="submit"]').forEach((btn) => {
+    btn.disabled = false
   })
 }
 
-// Вызываем функцию для каждой формы
+// === Рендер всех reCAPTCHA ===
+function renderRecaptchas() {
+  if (typeof grecaptcha === 'undefined') {
+    console.warn('grecaptcha не определён.')
+    return
+  }
+
+  document.querySelectorAll('.g-recaptcha').forEach((recaptcha) => {
+    if (!recaptcha.hasAttribute('data-widget-id')) {
+      const widgetId = grecaptcha.render(recaptcha, {
+        sitekey: recaptcha.getAttribute('data-sitekey'),
+        callback: enableSubmitBtn,
+      })
+
+      recaptcha.setAttribute('data-widget-id', widgetId)
+    }
+  })
+}
+
+// === Вызывается после загрузки API ===
+function onloadCallback() {
+  renderRecaptchas()
+}
+
+// === Сброс всех капч ===
+function resetAllRecaptchas() {
+  if (typeof grecaptcha === 'undefined') return
+
+  document.querySelectorAll('.g-recaptcha').forEach((recaptcha) => {
+    const widgetId = recaptcha.getAttribute('data-widget-id')
+    if (widgetId !== null) {
+      grecaptcha.reset(widgetId)
+    }
+  })
+}
+
+// === Отправка формы ===
+function submitForm(selector) {
+  const form = document.querySelector(selector)
+  if (!form) return
+
+  const submitBtn = form.querySelector('[type="submit"]')
+  if (submitBtn) submitBtn.disabled = true
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const recaptcha = form.querySelector('.g-recaptcha')
+    const widgetId = recaptcha?.getAttribute('data-widget-id')
+
+    const captchaResponse = typeof grecaptcha !== 'undefined' && widgetId ? grecaptcha.getResponse(widgetId) : null
+
+    // ❗ Проверка капчи
+    if (!captchaResponse) {
+      alert('Подтвердите, что вы не робот')
+      return
+    }
+
+    const formData = new FormData(form)
+
+    submitBtn.disabled = true
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success === true) {
+          // Метрика
+          if (typeof ym !== 'undefined') {
+            ym(95211276, 'reachGoal', 'Отправка_формы')
+          }
+
+          form.reset()
+          resetAllRecaptchas()
+
+          if (typeof closeModal === 'function') closeModal()
+          if (typeof showModal === 'function') showModal()
+        } else {
+          alert(data.error || 'Ошибка при отправке формы.')
+        }
+      })
+      .catch((error) => {
+        console.error('Ошибка запроса:', error)
+        alert('Ошибка сети. Попробуйте позже.')
+      })
+      .finally(() => {
+        submitBtn.disabled = false
+      })
+  })
+}
+
+// === Инициализация ===
 submitForm('.modal-window')
 submitForm('.send-form')
